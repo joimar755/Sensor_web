@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.login {
+  background: #f6f5f7 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  font-family: "Montserrat", sans-serif !important;
+  height: 100vh !important;
+  margin: -20px 0 50px !important;
+}
