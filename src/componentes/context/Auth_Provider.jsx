@@ -2,7 +2,7 @@ import axios, { Axios } from "axios";
 import React, { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8001/"; 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/"; 
 
 export const Auth_Provider = ({ children }) => {
   const [auth, setAuth] = useState({});
