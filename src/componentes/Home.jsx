@@ -5,6 +5,7 @@ import Lista from "./List/Lista";
 import { CardOne } from "./CardOne";
 import Example from "./Example";
 import Leds from "./Leds";
+import Bombillo_Report from "./Bombillo_Report";
 //import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -67,7 +68,9 @@ const Home = () => {
       <h1 className="text-3xl font-bold ">hola {auth.username}</h1>
       <div className="container mx-auto">
         <div className="grid content-around grid-cols-1 gap-4 sm:grid-cols-1 md:gri-cols-3 lg:grid-cols-2 2xl:grid-cols-3 ">
-          <Leds />
+          <Leds /> 
+         
+
           
         </div>
       </div>

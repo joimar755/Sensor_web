@@ -7,6 +7,7 @@ import { Auth_Provider } from "./context/Auth_Provider";
 import Home from "./Home";
 import TextLinkExample from "./TextLinkExample";
 import Register from "./Register";
+import Bombillo_Report from "./Bombillo_Report";
 
 export const Routing = () => {
   return (
@@ -24,7 +25,7 @@ export const Routing = () => {
             </Route>
           </Routes>
           <Routes>
-               <Route path="/carro" element={<Register />} />
+               <Route path="/carro" element={<Bombillo_Report />} />
                
           </Routes>
         </div>
