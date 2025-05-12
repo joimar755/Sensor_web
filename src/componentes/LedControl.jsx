@@ -1,27 +1,66 @@
-// LedControl.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const getToken = () => localStorage.getItem("token");
+
 function LedControl() {
   const [leds, setLeds] = useState({
-    led1: false,
-    led2: false,
-    led3: false
+    led1: 0,
+    led2: 0,
+    led3: 0,
+    bloqueos: 0
   });
+  const [bloqueo, setBloqueo] = useState(false);
+  const [intervalo, setIntervalo] = useState(5000);
 
-  // Obtener el estado inicial al cargar
+  const token = getToken();
+
+  // 👉 Esta función la usaremos en el POST y en el intervalo
+  const fetchStatus = () => {
+    axios
+      .get("http://192.168.1.16:8001/api/motion/data/bombillos/status", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => setLeds(res.data))
+      .catch((err) => console.error("Error al obtener estado:", err));
+  };
+
   useEffect(() => {
-    axios.get("http://192.168.1.11:8001/api/motion/data/estado")
-      .then(res => setLeds(res.data))
-      .catch(err => console.error("Error al obtener estado:", err));
-  }, []);
+    fetchStatus(); // Llamada inicial
+
+    const interval = setInterval(fetchStatus, intervalo);
+    return () => clearInterval(interval);
+  }, [intervalo]);
 
   const handleToggle = (ledKey) => {
-    const nuevoEstado = { ...leds, [ledKey]: !leds[ledKey] };
+    const nuevoEstado = {
+      ...leds,
+      bloqueos: bloqueo ? 1 : 0,
+      [ledKey]: leds[ledKey] ? 0 : 1,
+    };
 
-    axios.post("http://192.168.1.11:8001/api/motion/data/estado", nuevoEstado)
-      .then(res => setLeds(res.data.estado))
-      .catch(err => console.error("Error al actualizar estado:", err));
+    axios
+      .post("http://192.168.1.16:8001/api/motion/data/bombillos", nuevoEstado, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log("✅ Enviado:", res.data);
+        fetchStatus(); // 🔁 Actualizar estado justo después del POST
+      })
+      .catch((err) => {
+        console.error("❌ Error al enviar:", err);
+        if (err.response) console.error("Detalles:", err.response.data);
+      });
+  };
+
+  const cambiarIntervalo = () => {
+    setIntervalo(intervalo === 5000 ? 10000 : 5000);
   };
 
   return (
@@ -41,6 +80,14 @@ function LedControl() {
             </button>
           </div>
         ))}
+      </div>
+      <div className="mt-4">
+        <button
+          onClick={cambiarIntervalo}
+          className="px-4 py-2 text-white bg-blue-500 rounded"
+        >
+          Cambiar Intervalo (Actual: {intervalo / 1000} segundos)
+        </button>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function ControlLeds() {
     const newState = { ...leds, [ledName]: !leds[ledName] };
     setLeds(newState);
 
-    axios.post("http://192.168.1.11:8001/api/motion/data/bombillos", newState, {
+    axios.post("http://192.168.1.16:8001/api/motion/data/bombillos", newState, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
