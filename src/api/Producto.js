@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8001/"; 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/"; 
 
 
 const API = `${URL}/api/motion/data/bombillos`;    
