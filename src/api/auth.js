@@ -1,7 +1,7 @@
 
 import axios  from "axios";
 
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/";
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8001/";
 
 
 const API = `${URL}/usuario`
