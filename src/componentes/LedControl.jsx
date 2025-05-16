@@ -18,7 +18,7 @@ function LedControl() {
   // 👉 Esta función la usaremos en el POST y en el intervalo
   const fetchStatus = () => {
     axios
-      .get("http://192.168.1.16:8001/api/motion/data/bombillos/status", {
+      .get("http://192.168.1.11:8000/api/motion/data/bombillos/status", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function LedControl() {
     };
 
     axios
-      .post("http://192.168.1.16:8001/api/motion/data/bombillos", nuevoEstado, {
+      .post("http://192.168.1.11:8000/api/motion/data/bombillos", nuevoEstado, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

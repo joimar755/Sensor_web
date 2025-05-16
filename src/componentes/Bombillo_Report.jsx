@@ -11,7 +11,7 @@ const Bombillo_Report = () => {
 
     useEffect(() => {
         const obtener = async () => {
-            const url = await axios.get("http://192.168.1.2:8001/api/motion/data/bombillos");
+            const url = await axios.get("http://192.168.1.11:8000/api/motion/data/bombillos");
             const resultado = url;
             setData(resultado.data);
           };
@@ -23,7 +23,7 @@ const Bombillo_Report = () => {
       <div>
         <TextLinkExample />
         <h2>Reporte de Bombillos</h2>
-        <PDFButton onDownload={() => generatePDF(data)} />   
+        <PDFButton onDownload={() => generatePDF(data.data)} />   
       </div>
     );
 }
